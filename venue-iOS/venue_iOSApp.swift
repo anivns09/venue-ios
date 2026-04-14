@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct venue_iOSApp: App {
+    @StateObject private var coordinator = AppCoordinator()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppCoordinatorView(coordinator: coordinator)
         }
     }
 }
