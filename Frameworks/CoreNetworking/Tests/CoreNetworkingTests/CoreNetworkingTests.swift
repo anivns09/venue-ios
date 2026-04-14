@@ -1,5 +1,5 @@
-import XCTest
 @testable import CoreNetworking
+import XCTest
 
 struct Ticket: Codable, Equatable {
     let id: Int
@@ -7,7 +7,6 @@ struct Ticket: Codable, Equatable {
 }
 
 final class CoreNetworkingTests: XCTestCase {
-
     func testShouldLoadDataWhenSuccess() async throws {
         let expected = Ticket(id: 1, title: "Ticket 1")
         let session = try MockURLSession(value: expected)
@@ -58,12 +57,12 @@ final class CoreNetworkingTests: XCTestCase {
 
     func testShouldReturnDecodingErrorWhenLoadData() async throws {
         let garbled = Data("{ \"wrong\": true }".utf8)
-        let response = HTTPURLResponse(
-            url: URL(string: "https://example.com")!,
+        let response = try XCTUnwrap(try HTTPURLResponse(
+            url: XCTUnwrap(URL(string: "https://example.com")),
             statusCode: 200,
             httpVersion: nil,
             headerFields: nil
-        )!
+        ))
         let session = MockURLSession(result: .success((garbled, response)))
         let sut = NetworkService(session: session)
         do {
@@ -103,4 +102,3 @@ final class CoreNetworkingTests: XCTestCase {
         }
     }
 }
-

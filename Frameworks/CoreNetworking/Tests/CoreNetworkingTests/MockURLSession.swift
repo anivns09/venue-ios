@@ -5,11 +5,10 @@
 //  Created by Anirudh Pandey on 15/4/2026.
 //
 
-import Foundation
 @testable import CoreNetworking
+import Foundation
 
 final class MockURLSession: URLSessionProtocol {
-
     var result: Result<(Data, URLResponse), Error>
 
     init(result: Result<(Data, URLResponse), Error>) {
@@ -17,7 +16,7 @@ final class MockURLSession: URLSessionProtocol {
     }
 
     /// Succeed with any JSON-encodable value and an optional status code.
-    convenience init<T: Encodable>(value: T, statusCode: Int = 200) throws {
+    convenience init(value: some Encodable, statusCode: Int = 200) throws {
         let data = try JSONEncoder().encode(value)
         let response = HTTPURLResponse(
             url: URL(string: "https://example.com")!,
@@ -33,20 +32,20 @@ final class MockURLSession: URLSessionProtocol {
         self.init(result: .failure(error))
     }
 
-    func data(from url: URL) async throws -> (Data, URLResponse) {
+    func data(from _: URL) async throws -> (Data, URLResponse) {
         try resolve()
     }
 
-    func data(for request: URLRequest) async throws -> (Data, URLResponse) {
-        try resolve() 
+    func data(for _: URLRequest) async throws -> (Data, URLResponse) {
+        try resolve()
     }
 }
 
 private extension MockURLSession {
     func resolve() throws -> (Data, URLResponse) {
         switch result {
-        case .success(let tuple): return tuple
-        case .failure(let error): throw error
+        case let .success(tuple): return tuple
+        case let .failure(error): throw error
         }
     }
 }

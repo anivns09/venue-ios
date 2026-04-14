@@ -20,7 +20,6 @@ public protocol NetworkServiceProtocol {
 // MARK: - Network Service
 
 public class NetworkService: NetworkServiceProtocol {
-
     public enum NetworkError: Error, Equatable {
         case invalidURL
         case httpError(statusCode: Int)
@@ -41,7 +40,8 @@ public class NetworkService: NetworkServiceProtocol {
     }
 
     public func loadData<T: Decodable>(from urlString: String,
-                                       headers: [String: String]) async throws -> T {
+                                       headers: [String: String]) async throws -> T
+    {
         guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
 
         var request = URLRequest(url: url)
@@ -54,7 +54,7 @@ public class NetworkService: NetworkServiceProtocol {
     private func validate<T: Decodable>(response: URLResponse, data: Data) throws -> T {
         guard let http = response as? HTTPURLResponse else { throw NetworkError.unknown }
 
-        guard (200..<300).contains(http.statusCode) else {
+        guard (200 ..< 300).contains(http.statusCode) else {
             throw NetworkError.httpError(statusCode: http.statusCode)
         }
 
