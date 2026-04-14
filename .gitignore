@@ -1,0 +1,16 @@
+Build
+xcuserdata
+DerivedData
+
+/Package.resolved
+
+Pods/*
+.build
+.swiftpm
+.DS_Store
+.bundle
+vendor
+*.cer
+*.mobileprovision
+xcschememanagement.plist
+Index/*
