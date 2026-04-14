@@ -29,6 +29,16 @@
 		0689C8502F8ED13200B5F7F4 /* venue-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "venue-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0689C8712F8EEC1000B5F7F4 /* Exceptions for "Frameworks" folder in "venue-iOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CoreNetworking,
+			);
+			target = 0689C8382F8ED13000B5F7F4 /* venue-iOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0689C83B2F8ED13000B5F7F4 /* venue-iOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -43,6 +53,14 @@
 		0689C8532F8ED13200B5F7F4 /* venue-iOSUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "venue-iOSUITests";
+			sourceTree = "<group>";
+		};
+		0689C86F2F8EEBCA00B5F7F4 /* Frameworks */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0689C8712F8EEC1000B5F7F4 /* Exceptions for "Frameworks" folder in "venue-iOS" target */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +93,7 @@
 		0689C8302F8ED13000B5F7F4 = {
 			isa = PBXGroup;
 			children = (
+				0689C86F2F8EEBCA00B5F7F4 /* Frameworks */,
 				0689C83B2F8ED13000B5F7F4 /* venue-iOS */,
 				0689C8492F8ED13200B5F7F4 /* venue-iOSTests */,
 				0689C8532F8ED13200B5F7F4 /* venue-iOSUITests */,
@@ -109,6 +128,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				0689C83B2F8ED13000B5F7F4 /* venue-iOS */,
+				0689C86F2F8EEBCA00B5F7F4 /* Frameworks */,
 			);
 			name = "venue-iOS";
 			packageProductDependencies = (
