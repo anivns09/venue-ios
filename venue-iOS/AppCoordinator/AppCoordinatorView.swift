@@ -6,6 +6,7 @@
 //
 
 internal import Combine
+import CoreUtils
 import SwiftUI
 
 struct AppCoordinatorView<C: AppCoordinatorProtocol>: View {
@@ -19,10 +20,12 @@ struct AppCoordinatorView<C: AppCoordinatorProtocol>: View {
                     case .intro:
                         introView
                     case .list:
-                        VenueListView()
+                        let venueListViewModel = VenueListViewModel(venueFetcher: FetchVenuesUseCase(), locationService: LocationService())
+                        VenueListView(viewModel: venueListViewModel)
                             .navigationBarBackButtonHidden(true)
                     case .scanner:
-                        VenueListView()
+                        // TODO: Need to implement scanner view
+                        introView
                     }
                 }
         }

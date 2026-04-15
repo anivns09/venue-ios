@@ -7,15 +7,19 @@
 
 internal import Combine
 import CoreLocation
-import CoreNetworking
 import CoreUtils
 import SwiftUI
 
 class VenueListViewModel: ObservableObject {
-    @Published var coordinate: CLLocationCoordinate2D?
-    @Published var error: Error?
-    @Published var isLoading = false
-    private var venueFetcher: FetchVenuesUseCaseProtocol
+    enum VenueListState: Equatable {
+        case idle
+        case loading
+        case loaded([Venue])
+        case failed(String)
+    }
+
+    @Published private(set) var state: VenueListState = .idle
+    private let venueFetcher: FetchVenuesUseCaseProtocol
     private let locationService: LocationServiceProtocol
 
     init(venueFetcher: FetchVenuesUseCaseProtocol, locationService: LocationServiceProtocol = LocationService()) {
@@ -23,22 +27,18 @@ class VenueListViewModel: ObservableObject {
         self.locationService = locationService
     }
 
-    func fetchLocation() async {
-        print("Ani: fetching location")
-        isLoading = true
-        defer { isLoading = false }
+    func loadVenues() async {
+        state = .loading
         do {
-            coordinate = try await locationService.requestLocation()
-
-            let list = try await venueFetcher.execute(latitude: coordinate!.latitude, longitude: coordinate!.longitude)
-            print("Ani: list \(list)")
-
-        } catch is CancellationError {
-            // silently ignore — user navigated away
-            print("Ani: fetching CancellationError")
+            let coordinate = try await locationService.requestLocation()
+            let venues = try await venueFetcher.execute(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            state = .loaded(venues)
         } catch {
-            self.error = error
-            print("Ani:  error \(error)")
+            state = .failed(error.localizedDescription)
         }
+    }
+
+    func retry() async {
+        await loadVenues()
     }
 }

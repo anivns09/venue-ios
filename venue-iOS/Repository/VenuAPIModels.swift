@@ -12,7 +12,8 @@ struct VenueListResponse: Decodable {
 }
 
 // MARK: - Venue
-struct Venue: Decodable, Identifiable, Equatable {
+
+struct Venue: Decodable, Identifiable, Hashable {
     let code: String
     let name: String
     let address: String
@@ -37,11 +38,11 @@ struct Venue: Decodable, Identifiable, Equatable {
     }
 }
 
-struct PaxLocation: Decodable, Equatable {
+struct PaxLocation: Decodable, Hashable {
     let name: String
     let gates: [Gate]
 }
 
-struct Gate: Decodable, Equatable {
+struct Gate: Decodable, Hashable {
     let name: String
 }
