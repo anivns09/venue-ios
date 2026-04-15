@@ -40,6 +40,7 @@
 		0689C8712F8EEC1000B5F7F4 /* Exceptions for "Frameworks" folder in "venue-iOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				CodeScanner,
 				CoreNetworking,
 				CoreUtils,
 			);
