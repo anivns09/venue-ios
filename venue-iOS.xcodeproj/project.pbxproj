@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		065819AC2F8F8D000061E4D7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 065819AB2F8F8D000061E4D7 /* Localizable.xcstrings */; };
 		0689C8E32F8F2D2400B5F7F4 /* CoreNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 0689C8E22F8F2D2400B5F7F4 /* CoreNetworking */; };
 		0689C8E52F8F2D2400B5F7F4 /* CoreUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 0689C8E42F8F2D2400B5F7F4 /* CoreUtils */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		065819AB2F8F8D000061E4D7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = Localizable.xcstrings; path = "venue-iOS/Localizable.xcstrings"; sourceTree = "<group>"; };
 		0689C8392F8ED13000B5F7F4 /* venue-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "venue-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0689C8462F8ED13200B5F7F4 /* venue-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "venue-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0689C8502F8ED13200B5F7F4 /* venue-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "venue-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +103,7 @@
 		0689C8302F8ED13000B5F7F4 = {
 			isa = PBXGroup;
 			children = (
+				065819AB2F8F8D000061E4D7 /* Localizable.xcstrings */,
 				0689C86F2F8EEBCA00B5F7F4 /* Frameworks */,
 				0689C83B2F8ED13000B5F7F4 /* venue-iOS */,
 				0689C8492F8ED13200B5F7F4 /* venue-iOSTests */,
@@ -242,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				065819AC2F8F8D000061E4D7 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +363,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -417,6 +422,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -12,7 +12,7 @@ struct VenueListView: View {
 
     var body: some View {
         content
-            .navigationTitle("Nearby Venues")
+            .navigationTitle("ListViewTitle")
             .task { await viewModel.loadVenues() }
     }
 
@@ -27,11 +27,9 @@ struct VenueListView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
         case let .loaded(venues):
-            let _ = print("Ani: Loaded \(venues.count) venues")
             venueList(venues)
 
         case let .failed(message):
-            let _ = print("Ani: Loaded Error \(message)")
             errorView(message)
         }
     }
@@ -43,7 +41,7 @@ struct VenueListView: View {
     }
 
     private func errorView(_ message: String) -> some View {
-        ErrorView(actionTitle: "Try again", message: message) {
+        ErrorView(actionTitle: "tryAgain", message: message) {
             Task {
                 await viewModel.loadVenues()
             }
@@ -57,7 +55,7 @@ struct VenueRowView: View {
     let venue: Venue
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .center, spacing: 4) {
             Text(venue.name)
                 .font(.headline)
             Text("\(venue.city), \(venue.state)")

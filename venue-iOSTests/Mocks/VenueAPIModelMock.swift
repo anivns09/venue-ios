@@ -42,7 +42,7 @@ extension Venue {
         ])
     }
 
-    static func mock(code: String, name: String) -> Venue {
-        Venue(code: code, name: name, address: "", city: "", state: "", postcode: "", latitude: 0, longitude: 0, timezone: "", paxLocations: [])
+    static func mock(code: String, name: String, latitude: Double = -27.34438, longitude: Double = 153.07008) -> Venue {
+        Venue(code: code, name: name, address: "", city: "", state: "", postcode: "", latitude: latitude, longitude: longitude, timezone: "", paxLocations: [])
     }
 }
