@@ -5,12 +5,11 @@
 //  Created by Anirudh Pandey on 15/4/2026.
 //
 
-import XCTest
-@testable import CoreUtils
 import CoreLocation
+@testable import CoreUtils
+import XCTest
 
 final class LocationServiceTests: XCTestCase {
-
     func testShouldReturnSuccessWhenRequestLocation() async throws {
         let mock = MockLocationManager()
         mock.stubbedStatus = .authorizedWhenInUse
@@ -21,11 +20,11 @@ final class LocationServiceTests: XCTestCase {
 
         let coord = try await sut.requestLocation()
 
-        XCTAssertEqual(coord.latitude,  -33.8688, accuracy: 0.0001)
+        XCTAssertEqual(coord.latitude, -33.8688, accuracy: 0.0001)
         XCTAssertEqual(coord.longitude, 151.2093, accuracy: 0.0001)
         XCTAssertTrue(mock.didRequestLocation)
     }
-    
+
     func testShouldReturnDeniedBeforeRequestWhenRequestLocation() async {
         let mock = MockLocationManager()
         mock.stubbedStatus = .denied
@@ -41,18 +40,17 @@ final class LocationServiceTests: XCTestCase {
         }
         XCTAssertFalse(mock.didRequestLocation)
     }
-    
+
     func testShouldReturDidRequestAuthorizationWhenRequestLocationAndStatusIsNotDetermined() async throws {
         let mock = MockLocationManager()
         mock.stubbedStatus = .notDetermined
 
         // Change to authorised then fire a location so the continuation resolves.
         mock.onRequestLocation = {
+            // Manually bump status so requestLocation() doesn't throw
+            mock.stubbedStatus = .authorizedWhenInUse
             mock.simulateLocationUpdate(lat: 0, lon: 0)
         }
-
-        // Manually bump status so requestLocation() doesn't throw
-        mock.stubbedStatus = .authorizedWhenInUse
 
         let sut = LocationService(manager: mock)
         _ = try await sut.requestLocation()
@@ -79,7 +77,7 @@ final class LocationServiceTests: XCTestCase {
             XCTFail("Unexpected error: \(error)")
         }
     }
-    
+
     func testShouldReturnDeniedDuringRequestWhenRequestLocation() async {
         let mock = MockLocationManager()
         mock.stubbedStatus = .authorizedWhenInUse
@@ -99,4 +97,3 @@ final class LocationServiceTests: XCTestCase {
         }
     }
 }
-

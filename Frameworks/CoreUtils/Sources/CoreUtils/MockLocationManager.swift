@@ -8,18 +8,18 @@
 import CoreLocation
 
 final class MockLocationManager: LocationManagerProtocol {
-
     weak var delegate: CLLocationManagerDelegate?
 
     /// Set this before calling requestLocation() in each test.
     var stubbedStatus: CLAuthorizationStatus = .authorizedWhenInUse
 
-    var authorizationStatus: CLAuthorizationStatus { stubbedStatus }
+    var authorizationStatus: CLAuthorizationStatus {
+        stubbedStatus
+    }
 
     private(set) var didRequestAuthorization = false
     private(set) var didRequestLocation = false
 
-    // Injected behaviour — call these from your test after requestLocation() fires.
     var onRequestLocation: (() -> Void)?
 
     func requestWhenInUseAuthorization() {
@@ -33,6 +33,7 @@ final class MockLocationManager: LocationManagerProtocol {
 }
 
 // MARK: Simulation helpers
+
 extension MockLocationManager {
     /// Simulate the delegate receiving a valid location.
     func simulateLocationUpdate(lat: Double, lon: Double) {
