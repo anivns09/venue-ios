@@ -33,7 +33,17 @@ final class VenueRepositoryTests: XCTestCase {
         _ = try? await sut.fetchVenues(latitude: -33.877, longitude: 151.210)
 
         XCTAssertEqual(spy.capturedURL,
-                       VenueEndpoint.url(latitude: -33.877, longitude: 151.210))
+                       VenueEndpoint.venueListUrl(latitude: -33.877, longitude: 151.210))
+    }
+    
+    func testScanCodeMapsLatLonIntoURL() async {
+        let spy = SpyNetworkService()
+        let sut = VenueRepository(networkService: spy)
+
+        _ = try? await sut.scanBarcode(venueCode: "BEC", barcode: "989898")
+
+        XCTAssertEqual(spy.capturedURL,
+                       VenueEndpoint.scanURL(venueCode: "BEC"))
     }
 
     func testFetchVenuesIncludesAllRequiredHeaders() async {
@@ -46,6 +56,28 @@ final class VenueRepositoryTests: XCTestCase {
         XCTAssertEqual(spy.capturedHeaders?["Authorization"], VenueEndpoint.authToken)
         XCTAssertEqual(spy.capturedHeaders?["content-type"], "application/json")
         XCTAssertEqual(spy.capturedHeaders?["Accept-Language"], "en")
+    }
+    
+    func testScanCodeIncludesAllRequiredHeaders() async {
+        let spy = SpyNetworkService()
+        let sut = VenueRepository(networkService: spy)
+
+        _ = try? await sut.scanBarcode(venueCode: "BEC", barcode: "989898")
+
+        XCTAssertEqual(spy.capturedHeaders?["x-api-key"], VenueEndpoint.apiKey)
+        XCTAssertEqual(spy.capturedHeaders?["Authorization"], VenueEndpoint.authToken)
+        XCTAssertEqual(spy.capturedHeaders?["content-type"], "application/json")
+        XCTAssertEqual(spy.capturedHeaders?["Accept-Language"], "en")
+    }
+    
+    func testScanCodeDecodeResponse() async throws {
+        let sut = makeSucceedingSUT()
+        let scanResult = try? await sut.scanBarcode(venueCode: "BEC", barcode: "989898")
+
+        let result = try XCTUnwrap(scanResult)
+        XCTAssertEqual(result.concession, TicketScanResult.successResponse.concession)
+        XCTAssertEqual(result.status, TicketScanResult.successResponse.status)
+        XCTAssertEqual(result.result, TicketScanResult.successResponse.result)
     }
 
     func testFetchVenuesDecodesNestedPaxLocations() async throws {
@@ -144,10 +176,10 @@ final class VenueRepositoryTests: XCTestCase {
 
 private extension VenueRepositoryTests {
     func makeSucceedingSUT() -> VenueRepository {
-        VenueRepository(networkService: StubNetworkService(response: Venue.mockVenues))
+        VenueRepository(networkService: StubNetworkService(venueResponse: Venue.mockVenues))
     }
 
     func makeSUT(throwing error: Error) -> VenueRepository {
-        VenueRepository(networkService: StubNetworkService(response: Venue.mockVenues, error: error))
+        VenueRepository(networkService: StubNetworkService(venueResponse: Venue.mockVenues, error: error))
     }
 }

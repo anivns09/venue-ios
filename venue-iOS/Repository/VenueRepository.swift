@@ -24,8 +24,12 @@ nonisolated enum VenueEndpoint {
         ]
     }
 
-    static func url(latitude: Double, longitude: Double) -> String {
+    static func venueListUrl(latitude: Double, longitude: Double) -> String {
         "\(baseURL)?latitude=\(latitude)&longitude=\(longitude)"
+    }
+
+    static func scanURL(venueCode: String) -> String {
+        "\(baseURL)\(venueCode)/pax/entry/scan"
     }
 }
 
@@ -33,7 +37,11 @@ nonisolated enum VenueEndpoint {
 
 protocol VenueRepositoryProtocol {
     /// Fetches venues for the given coordinate.
-    func fetchVenues(latitude: Double, longitude: Double) async throws -> [Venue]
+    func fetchVenues(latitude: Double, longitude: Double) async throws
+        -> [Venue]
+
+    func scanBarcode(venueCode: String, barcode: String) async throws
+        -> TicketScanResult
 }
 
 // MARK: - Repository Implementation
@@ -45,8 +53,13 @@ nonisolated final class VenueRepository: VenueRepositoryProtocol {
         self.networkService = networkService
     }
 
-    func fetchVenues(latitude: Double, longitude: Double) async throws -> [Venue] {
-        let urlString = VenueEndpoint.url(latitude: latitude, longitude: longitude)
+    func fetchVenues(latitude: Double, longitude: Double) async throws
+        -> [Venue]
+    {
+        let urlString = VenueEndpoint.venueListUrl(
+            latitude: latitude,
+            longitude: longitude
+        )
 
         let response: VenueListResponse = try await networkService.loadData(
             from: urlString,
@@ -54,5 +67,18 @@ nonisolated final class VenueRepository: VenueRepositoryProtocol {
         )
 
         return response.venues
+    }
+
+    func scanBarcode(venueCode: String, barcode: String) async throws
+        -> TicketScanResult
+    {
+        let body = ScanRequest(barcode: barcode)
+        let urlString = VenueEndpoint.scanURL(venueCode: venueCode)
+
+        return try await networkService.postData(
+            to: urlString,
+            body: body,
+            headers: VenueEndpoint.headers
+        )
     }
 }
