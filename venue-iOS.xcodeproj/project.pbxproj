@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0689C8E32F8F2D2400B5F7F4 /* CoreNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 0689C8E22F8F2D2400B5F7F4 /* CoreNetworking */; };
+		0689C8E52F8F2D2400B5F7F4 /* CoreUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 0689C8E42F8F2D2400B5F7F4 /* CoreUtils */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		0689C8472F8ED13200B5F7F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -34,6 +39,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				CoreNetworking,
+				CoreUtils,
 			);
 			target = 0689C8382F8ED13000B5F7F4 /* venue-iOS */;
 		};
@@ -70,6 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0689C8E32F8F2D2400B5F7F4 /* CoreNetworking in Frameworks */,
+				0689C8E52F8F2D2400B5F7F4 /* CoreUtils in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +140,8 @@
 			);
 			name = "venue-iOS";
 			packageProductDependencies = (
+				0689C8E22F8F2D2400B5F7F4 /* CoreNetworking */,
+				0689C8E42F8F2D2400B5F7F4 /* CoreUtils */,
 			);
 			productName = "venue-iOS";
 			productReference = 0689C8392F8ED13000B5F7F4 /* venue-iOS.app */;
@@ -604,6 +614,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0689C8E22F8F2D2400B5F7F4 /* CoreNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreNetworking;
+		};
+		0689C8E42F8F2D2400B5F7F4 /* CoreUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreUtils;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0689C8312F8ED13000B5F7F4 /* Project object */;
 }
