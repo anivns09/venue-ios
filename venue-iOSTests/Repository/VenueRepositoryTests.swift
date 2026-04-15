@@ -107,7 +107,7 @@ final class VenueRepositoryTests: XCTestCase {
             XCTFail("Unexpected error type: \(error)")
         }
     }
-    
+
     func testDecodingRealAPIResponseJSON() throws {
         let json = """
         {
@@ -138,10 +138,10 @@ final class VenueRepositoryTests: XCTestCase {
         XCTAssertEqual(decoded.venues[0].code, "AEC")
         XCTAssertEqual(decoded.venues[0].paxLocations[0].gates.count, 3)
     }
-    
 }
 
 // MARK: - Helpers
+
 private extension VenueRepositoryTests {
     func makeSucceedingSUT() -> VenueRepository {
         VenueRepository(networkService: StubNetworkService(response: Venue.mockVenues))
@@ -151,4 +151,3 @@ private extension VenueRepositoryTests {
         VenueRepository(networkService: StubNetworkService(response: Venue.mockVenues, error: error))
     }
 }
-

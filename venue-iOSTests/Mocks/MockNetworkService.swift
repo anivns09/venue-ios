@@ -12,7 +12,7 @@ import CoreNetworking
 final class StubNetworkService: NetworkServiceProtocol {
     private let response: VenueListResponse
     private let error: Error?
-    
+
     init(response: VenueListResponse, error: Error? = nil) {
         self.response = response
         self.error = error
@@ -51,6 +51,5 @@ final class SpyNetworkService: NetworkServiceProtocol {
         capturedURL = urlString
         capturedHeaders = headers
         throw NetworkService.NetworkError.decodingError
-        
     }
 }
