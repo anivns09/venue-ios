@@ -13,8 +13,8 @@ extension URLSession: URLSessionProtocol {}
 // MARK: - Network Service Protocol
 
 public protocol NetworkServiceProtocol {
-    func loadData<T: Decodable>(from urlString: String) async throws -> T
     func loadData<T: Decodable>(from urlString: String, headers: [String: String]) async throws -> T
+    func postData<T: Decodable, B: Encodable>(to urlString: String, body: B, headers: [String: String]) async throws -> T
 }
 
 // MARK: - Network Service
@@ -33,18 +33,26 @@ public class NetworkService: NetworkServiceProtocol {
         self.session = session
     }
 
-    public func loadData<T: Decodable>(from urlString: String) async throws -> T {
-        guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
-        let (data, response) = try await session.data(from: url)
-        return try validate(response: response, data: data)
-    }
-
     public func loadData<T: Decodable>(from urlString: String,
                                        headers: [String: String]) async throws -> T
     {
         guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
 
         var request = URLRequest(url: url)
+        headers.forEach { request.setValue($1, forHTTPHeaderField: $0) }
+
+        let (data, response) = try await session.data(for: request)
+        return try validate(response: response, data: data)
+    }
+    
+    public func postData<T: Decodable, B: Encodable>(to urlString: String, body: B, headers: [String: String]) async throws -> T {
+        guard let url = URL(string: urlString) else {
+            throw NetworkError.invalidURL
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONEncoder().encode(body)
         headers.forEach { request.setValue($1, forHTTPHeaderField: $0) }
 
         let (data, response) = try await session.data(for: request)
