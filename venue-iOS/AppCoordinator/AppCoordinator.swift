@@ -5,7 +5,7 @@
 //  Created by Anirudh Pandey on 15/4/2026.
 //
 
-import Combine
+internal import Combine
 import SwiftUI
 
 enum AppRoute: Hashable {
