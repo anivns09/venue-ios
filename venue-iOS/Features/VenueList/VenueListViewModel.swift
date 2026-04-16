@@ -5,7 +5,7 @@
 //  Created by Anirudh Pandey on 15/4/2026.
 //
 
-internal import Combine
+import Combine
 import CoreLocation
 import CoreUtils
 import SwiftUI
@@ -21,8 +21,10 @@ class VenueListViewModel: ObservableObject {
     @Published private(set) var state: VenueListState = .idle
     private let venueFetcher: FetchVenuesUseCaseProtocol
     private let locationService: LocationServiceProtocol
+    private var appCoordinator: any AppCoordinatorProtocol
 
-    init(venueFetcher: FetchVenuesUseCaseProtocol, locationService: LocationServiceProtocol = LocationService()) {
+    init(appCoordinator: any AppCoordinatorProtocol, venueFetcher: FetchVenuesUseCaseProtocol, locationService: LocationServiceProtocol = LocationService()) {
+        self.appCoordinator = appCoordinator
         self.venueFetcher = venueFetcher
         self.locationService = locationService
     }
@@ -36,6 +38,10 @@ class VenueListViewModel: ObservableObject {
         } catch {
             state = .failed(error.localizedDescription)
         }
+    }
+
+    func didSelectVenue(_ venueCode: String) {
+        appCoordinator.push(.ticketScanner(venueCode: venueCode))
     }
 
     func retry() async {

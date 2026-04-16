@@ -36,12 +36,12 @@ struct VenueListView: View {
 
     private func venueList(_ venues: [Venue]) -> some View {
         List(venues) { venue in
-            NavigationLink(value: venue) {
+            Button {
+                viewModel.didSelectVenue(venue.code)
+            } label: {
                 VenueRowView(venue: venue)
             }
-        }
-        navigationDestination(for: Venue.self) { venue in
-            
+            .buttonStyle(.plain)
         }
     }
 
@@ -68,6 +68,7 @@ struct VenueRowView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 4)
     }
 }
