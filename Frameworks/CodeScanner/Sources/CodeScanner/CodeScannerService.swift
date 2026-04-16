@@ -28,7 +28,7 @@ public final class CodeScannerService: CodeScannerServiceProtocol {
 
     /// Returns a stream of decoded barcode strings.
     /// The stream stays open until `stop()` is called or the task is cancelled.
-    func codesStream() -> AsyncStream<String> {
+    public func codesStream() -> AsyncStream<String> {
         stopInternal()
 
         let stream = AsyncStream<String> { continuation in
@@ -54,7 +54,7 @@ public final class CodeScannerService: CodeScannerServiceProtocol {
         return stream
     }
 
-    func stop() {
+    public func stop() {
         stopInternal()
     }
     

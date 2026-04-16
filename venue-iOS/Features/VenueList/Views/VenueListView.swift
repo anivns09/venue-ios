@@ -36,7 +36,12 @@ struct VenueListView: View {
 
     private func venueList(_ venues: [Venue]) -> some View {
         List(venues) { venue in
-            VenueRowView(venue: venue)
+            NavigationLink(value: venue) {
+                VenueRowView(venue: venue)
+            }
+        }
+        navigationDestination(for: Venue.self) { venue in
+            
         }
     }
 
@@ -57,13 +62,11 @@ struct VenueRowView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 4) {
             Text(venue.name)
+                .multilineTextAlignment(.center)
                 .font(.headline)
             Text("\(venue.city), \(venue.state)")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-            Text(venue.address)
-                .font(.caption)
-                .foregroundStyle(.tertiary)
         }
         .padding(.vertical, 4)
     }

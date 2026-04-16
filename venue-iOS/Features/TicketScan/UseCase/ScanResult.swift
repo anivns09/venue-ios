@@ -1,11 +1,11 @@
 //
-//  Untitled.swift
+//  ScanResult.swift
 //  venue-iOS
 //
 //  Created by Anirudh Pandey on 15/4/2026.
 //
 
-enum ScanResult {
+enum ScanResult: Equatable {
     case success(TicketScanResult)
     case rejected(status: String)
 

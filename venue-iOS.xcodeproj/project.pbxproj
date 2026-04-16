@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		065819AC2F8F8D000061E4D7 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 065819AB2F8F8D000061E4D7 /* Localizable.xcstrings */; };
+		065819D52F8FD9910061E4D7 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 065819D42F8FD9910061E4D7 /* CodeScanner */; };
 		0689C8E32F8F2D2400B5F7F4 /* CoreNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 0689C8E22F8F2D2400B5F7F4 /* CoreNetworking */; };
 		0689C8E52F8F2D2400B5F7F4 /* CoreUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 0689C8E42F8F2D2400B5F7F4 /* CoreUtils */; };
 /* End PBXBuildFile section */
@@ -81,6 +82,7 @@
 			files = (
 				0689C8E32F8F2D2400B5F7F4 /* CoreNetworking in Frameworks */,
 				0689C8E52F8F2D2400B5F7F4 /* CoreUtils in Frameworks */,
+				065819D52F8FD9910061E4D7 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +148,7 @@
 			packageProductDependencies = (
 				0689C8E22F8F2D2400B5F7F4 /* CoreNetworking */,
 				0689C8E42F8F2D2400B5F7F4 /* CoreUtils */,
+				065819D42F8FD9910061E4D7 /* CodeScanner */,
 			);
 			productName = "venue-iOS";
 			productReference = 0689C8392F8ED13000B5F7F4 /* venue-iOS.app */;
@@ -621,6 +624,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		065819D42F8FD9910061E4D7 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CodeScanner;
+		};
 		0689C8E22F8F2D2400B5F7F4 /* CoreNetworking */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CoreNetworking;

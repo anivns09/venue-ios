@@ -29,7 +29,7 @@ extension DataScannerViewController: DataScannerProtocol {}
 // MARK: - Service Protocol
 
 @MainActor
-protocol CodeScannerServiceProtocol: AnyObject {
+public protocol CodeScannerServiceProtocol: AnyObject {
     /// Emits barcode string values as they are recognised.
     func codesStream() -> AsyncStream<String>
     func stop()
