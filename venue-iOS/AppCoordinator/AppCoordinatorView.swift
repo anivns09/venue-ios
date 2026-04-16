@@ -5,42 +5,36 @@
 //  Created by Anirudh Pandey on 15/4/2026.
 //
 
-internal import Combine
-import CoreUtils
 import SwiftUI
 
+@MainActor
 struct AppCoordinatorView<C: AppCoordinatorProtocol>: View {
     @ObservedObject var coordinator: C
+    private let viewFactory: AppViewFactory
+
+    init(coordinator: C, viewFactory: AppViewFactory) {
+        self.coordinator = coordinator
+        self.viewFactory = viewFactory
+    }
 
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            introView
+            viewFactory.introView(coordinator: coordinator)
                 .navigationDestination(for: AppRoute.self) { route in
                     switch route {
                     case .intro:
-                        introView
+                        viewFactory.introView(coordinator: coordinator)
                     case .list:
-                        let venueListViewModel = VenueListViewModel(venueFetcher: FetchVenuesUseCase(), locationService: LocationService())
-                        VenueListView(viewModel: venueListViewModel)
-                            .navigationBarBackButtonHidden(true)
-                    case .scanner:
-                        // TODO: Need to implement scanner view
-                        introView
+                        viewFactory.venueListView(coordinator: coordinator)
+                    case let .ticketScanner(venueCode):
+                        viewFactory.ticketScannerView(venueCode: venueCode)
                     }
                 }
         }
     }
 }
 
-private extension AppCoordinatorView {
-    var introView: some View {
-        IntroView {
-            coordinator.push(.list)
-        }
-    }
-}
-
 #Preview {
     var coordinator = AppCoordinator()
-    AppCoordinatorView(coordinator: coordinator)
+    AppCoordinatorView(coordinator: coordinator, viewFactory: AppViewFactory())
 }

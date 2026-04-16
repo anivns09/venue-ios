@@ -5,13 +5,13 @@
 //  Created by Anirudh Pandey on 15/4/2026.
 //
 
-internal import Combine
+import Combine
 import SwiftUI
 
 enum AppRoute: Hashable {
     case intro
     case list
-    case scanner
+    case ticketScanner(venueCode: String)
 }
 
 protocol AppCoordinatorProtocol: ObservableObject {

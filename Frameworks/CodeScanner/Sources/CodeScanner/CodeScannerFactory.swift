@@ -9,10 +9,12 @@ import VisionKit
 import Vision
 
 @MainActor
-enum CodeScannerFactory {
-    @MainActor
-    static func make() -> DataScannerViewController {
-        DataScannerViewController(
+public enum CodeScannerFactory {
+    private static var shared: DataScannerViewController?
+
+    public static func make() -> DataScannerViewController {
+        if let shared { return shared }
+        let scanner = DataScannerViewController(
             recognizedDataTypes: [
                 .barcode(symbologies: [
                     .ean8, .ean13, .pdf417, .qr,
@@ -25,5 +27,7 @@ enum CodeScannerFactory {
             isHighFrameRateTrackingEnabled: false,
             isHighlightingEnabled: true
         )
+        self.shared = scanner
+        return scanner
     }
 }

@@ -12,7 +12,7 @@ struct venue_iOSApp: App {
     @StateObject private var coordinator = AppCoordinator()
     var body: some Scene {
         WindowGroup {
-            AppCoordinatorView(coordinator: coordinator)
+            AppCoordinatorView(coordinator: coordinator, viewFactory: AppViewFactory())
         }
     }
 }

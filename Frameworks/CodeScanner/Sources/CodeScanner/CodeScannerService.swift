@@ -20,7 +20,7 @@ public final class CodeScannerService: CodeScannerServiceProtocol {
 
     /// - Parameter scanner: injectable for testing; defaults to a live scanner.
 
-    init(scanner: DataScannerProtocol) {
+    public init(scanner: DataScannerProtocol) {
         self.scanner = scanner
     }
 
@@ -30,7 +30,6 @@ public final class CodeScannerService: CodeScannerServiceProtocol {
     /// The stream stays open until `stop()` is called or the task is cancelled.
     public func codesStream() -> AsyncStream<String> {
         stopInternal()
-
         let stream = AsyncStream<String> { continuation in
             self.continuation = continuation
             continuation.onTermination = { [weak self] _ in
@@ -57,7 +56,11 @@ public final class CodeScannerService: CodeScannerServiceProtocol {
     public func stop() {
         stopInternal()
     }
-    
+
+    public var isSupported: Bool {
+        DataScannerViewController.isSupported
+    }
+
 }
 
 private extension CodeScannerService {

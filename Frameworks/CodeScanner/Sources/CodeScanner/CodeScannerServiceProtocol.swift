@@ -12,7 +12,7 @@ import UIKit
 // MARK: - Scanner Protocol
 
 @MainActor
-protocol DataScannerProtocol: AnyObject {
+public protocol DataScannerProtocol: AnyObject {
     var recognizedItems: AsyncStream<[RecognizedItem]> { get }
     func startScanning() throws
     func stopScanning()
@@ -31,6 +31,8 @@ extension DataScannerViewController: DataScannerProtocol {}
 @MainActor
 public protocol CodeScannerServiceProtocol: AnyObject {
     /// Emits barcode string values as they are recognised.
+    
+    var isSupported: Bool { get }
     func codesStream() -> AsyncStream<String>
     func stop()
 }
